@@ -249,7 +249,7 @@ async def generate_key(interaction: discord.Interaction, slots: int):
     keys[key] = {"slots": slots, "used": []}
     save_json(KEYS_JSON, keys)
 
-    embed_key = make_embed("Key Generated", f"🔑 `{key}`\n🎫 Slots: {slots}\n👤 Admin: <@{interaction.user.id}>")
+    embed_key = make_embed("Key Generated", f"🔑 ```{key}```\n🎫 Slots: {slots}\n👤 Admin: <@{interaction.user.id}>")
     await interaction.response.send_message(embed=embed_key, ephemeral=True)
     print(f"Generated key: {key}")
 
