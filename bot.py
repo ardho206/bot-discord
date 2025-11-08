@@ -87,8 +87,8 @@ class UsernameModal(Modal):
     def __init__(self, key_slot=None):
         super().__init__(title="Masukkan Username + Key")
         self.key_slot = key_slot
-        self.username_input = TextInput(label="Username Roblox", placeholder="username...")
-        self.key_input = TextInput(label="Key", placeholder="key...") if key_slot is None else None
+        self.username_input = TextInput(label="Username Roblox", placeholder="Masukkan Username...")
+        self.key_input = TextInput(label="Key", placeholder="Masukkan Key...") if key_slot is None else None
         self.add_item(self.username_input)
         if self.key_input:
             self.add_item(self.key_input)
@@ -205,7 +205,7 @@ class EditUsernameModal(Modal):
             users[uid]["usernames"][users[uid]["usernames"].index(self.old_username)] = new_username
             save_json(LOCAL_JSON, users)
 
-        await interaction.response.send_message(embed=success_embed(f"Username `{self.old_username}` diubah ke `{new_username}`!"), ephemeral=True)
+        await interaction.response.send_message(embed=success_embed(f"Username `{self.old_username}` diubah ke `{new_username}`!\n**Mohon tunggu 1-5 menit untuk verifikasi username baru**\n**Jika sudah menunggu silahkan menggunakan script dengan username `{new_username}`**"), ephemeral=True)
 
 # ---------- Manage ----------
 async def manage_callback(interaction: discord.Interaction):
@@ -294,7 +294,7 @@ async def message_bot(channel):
     async def premium_callback(interaction):
         embed = make_embed(
             "Info Premium SansMoba",
-            "⭐ Instant fish X5\n🕘 Script tanpa limit\n🎁 Dan masih banyak lagi!"
+            "⭐ Instant fish X5\n🕘 Script tanpa limit\n🔗 Webhook discord\n🎁 Dan masih banyak lagi!"
         )
         await interaction.response.send_message(embed=embed, ephemeral=True)
 
