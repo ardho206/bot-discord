@@ -243,15 +243,20 @@ async def manage_callback(interaction: discord.Interaction):
 async def generate_key(interaction: discord.Interaction, slots: int):
     if interaction.user.id not in ALLOWED_USERS:
         await interaction.response.send_message(embed=error_embed("Kamu tidak punya akses!"), ephemeral=True)
+        print(f"Unauthorized key generation attempt by @{interaction.user.id}")
         return
 
     key = f"SansPrem_{''.join(random.choices(string.ascii_letters + string.digits, k=20))}"
     keys[key] = {"slots": slots, "used": []}
     save_json(KEYS_JSON, keys)
 
-    embed_key = make_embed("Key Generated", f"🔑 ```{key}```\n🎫 Slots: {slots}\n👤 Admin: <@{interaction.user.id}>")
+    embed_key = discord.Embed(title="Key Generated", color=0xA64DFF)
+    embed_key.add_field(name="Key: ", value=f"{key}", inline=False)
+    embed_key.add_field(name="Slots: ", value=f"{slots}", inline=False)
+    embed_key.add_field(name="Admin: ", value=f"<@{interaction.user.id}>", inline=False)
+    embed_key.add_field(name="Click to copy the key", value=f"```{key}```", inline=False)
     await interaction.response.send_message(embed=embed_key, ephemeral=True)
-    print(f"Generated key: {key}")
+    print(f"Generated key: {key} by user @{interaction.user.id}")
 
 # ---------- Message UI ----------
 async def message_bot(channel):
